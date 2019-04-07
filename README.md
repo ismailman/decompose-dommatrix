@@ -39,7 +39,7 @@ The rotation values along the various axis. In degrees (deg).
 
 The scale values along the various axis. Unitless.
 
-#### `skewX, skewY, skewZ: number`
+#### `skewXY, skewXZ, skewYZ: number`
 
 The skew values along the various axis. In degrees (deg).
 

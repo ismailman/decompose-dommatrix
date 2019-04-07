@@ -10,9 +10,9 @@ export interface TransformValues {
     translateX: number;
     translateY: number;
     translateZ: number;
-    skewX: number;
-    skewY: number;
-    skewZ: number;
+    skewXY: number;
+    skewXZ: number;
+    skewYZ: number;
 }
 
 export default function decomposeDOMMatrix(domMatrix: DOMMatrix): TransformValues;

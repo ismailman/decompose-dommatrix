@@ -126,8 +126,8 @@ export default function decomposeMatrix(matrix) {
 		translateX: translation[0],
 		translateY: translation[1],
 		translateZ: translation[2],
-		skewX: roundToThreePlaces(skew[0]) * RAD_TO_DEG,
-		skewY: roundToThreePlaces(skew[1]) * RAD_TO_DEG,
-		skewZ: roundToThreePlaces(skew[2] * RAD_TO_DEG)
+		skewXY: roundToThreePlaces(skew[0]) * RAD_TO_DEG,
+		skewXZ: roundToThreePlaces(skew[1]) * RAD_TO_DEG,
+		skewYZ: roundToThreePlaces(skew[2] * RAD_TO_DEG)
 	};
 }
