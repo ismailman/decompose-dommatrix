@@ -1,0 +1,39 @@
+<html>
+    <head>
+            <title>Test Decompose</title>
+    </head>
+    <body>
+        <div id="box"></div>
+        <div id="form">
+            <input id="transforms" type="text" />
+            <input id="apply" type="button" value="Apply" />
+        </div>
+        <div id="output"></div>
+        <script type="module">
+            import decomposeDOMMatrix from './decompose-dommatrix.mjs';
+
+            const box = document.getElementById('box');
+            const transforms = document.getElementById('transforms');
+            const output = document.getElementById('output');
+            document.getElementById('apply').addEventListener('click', () => {
+                box.style.transform = transforms.value;
+
+                const computedTransformMatrix = new DOMMatrix(getComputedStyle(box).getPropertyValue('transform'));
+                const decomposed = decomposeDOMMatrix(computedTransformMatrix);
+
+                output.innerText = JSON.stringify(decomposed);
+            });
+
+        </script>
+
+        <style>
+            #box {
+                border: 1px;
+                width: 50px;
+                height: 50px;
+                background-color: red;
+                display: inline-block;
+            }
+        </style>
+    </body>
+</html>
