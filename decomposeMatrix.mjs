@@ -1,15 +1,14 @@
 /*
 
 this code is copied from https://github.com/facebook/react-native/blob/master/Libraries/Utilities/MatrixMath.js#L572 and modified
-to work with DOMMatrix instead of a flat array
+for some clarity and being able to work standalone. Expects the matrix to be a 4-element array of 4-element arrays of numbers.
 
-DOMMatrix is column major, meaning:
- _               _
-| m11 m21 m31 m41 |  
-  m12 m22 m32 m42
-  m13 m23 m33 m43
-  m14 m24 m34 m44
-|_               _|
+[
+    [column1 row1 value, column1 row2 value, column1 row3 value],
+    [column2 row1 value, column2 row2 value, column2 row3 value],
+    [column3 row1 value, column3 row2 value, column3 row3 value],
+    [column4 row1 value, column4 row2 value, column4 row3 value]
+]
 
 */
 
@@ -19,31 +18,23 @@ import quaternionToDegreesXYZ from './quaternionToDegreesXYZ.mjs';
 
 const RAD_TO_DEG = 180 / Math.PI;
 
-export default function decomposeDOMMatrix(domMatrix) {
+export default function decomposeMatrix(matrix) {
 	const quaternion = new Array(4);
 	const scale = new Array(3);
 	const skew = new Array(3);
 	const translation = new Array(3);
 
-	const indexableVersionOfMatrix = new Array(4);
-	for (let columnIndex = 1; columnIndex < 5; columnIndex++) {
-		const columnArray = indexableVersionOfMatrix[columnIndex - 1] = new Array(4);
-		for (let rowIndex = 1; rowIndex < 5; rowIndex++) {
-			columnArray[rowIndex - 1] = domMatrix[`m${columnIndex}${rowIndex}`];
-		}
-	}
-
 	// translation is simple
 	// it's the first 3 values in the last column
 	// i.e. m41 is X translation, m42 is Y and m43 is Z
 	for (let i = 0; i < 3; i++) {
-		translation[i] = indexableVersionOfMatrix[3][i];
+		translation[i] = matrix[3][i];
 	}
 
 	// Now get scale and shear.
 	const normalizedColumns = new Array(3);
 	for (let columnIndex = 0; columnIndex < 3; columnIndex++) {
-		normalizedColumns[columnIndex] = indexableVersionOfMatrix[columnIndex].slice(0, 3);
+		normalizedColumns[columnIndex] = matrix[columnIndex].slice(0, 3);
 	}
 
 	// Compute X scale factor and normalize first row.
