@@ -1,6 +1,6 @@
 {
   "name": "decompose-dommatrix",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A small library to decompose a DOMMatrix into transform values.",
   "main": "decomposeDommatrix.mjs",
   "repository": "https://github.com/ismailman/decompose-dommatrix.git",
